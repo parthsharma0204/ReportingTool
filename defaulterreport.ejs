@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report a Defaulter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            height: 100vh;
+            overflow: hidden; /* Prevents body scroll */
+        }
+        .sidebar {
+            width: 20%;
+            min-width: 250px;
+            height: 100vh;
+            background-color: #011C3A;
+            color: white;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+        }
+        .profile-section {
+            text-align: center;
+            padding: 16px;
+        }
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: url('https://via.placeholder.com/120') no-repeat center center;
+            background-size: cover;
+            margin: 0 auto;
+        }
+        .profile-name {
+            margin: 10px 0 5px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .profile-email {
+            font-size: 14px;
+            color: #aaa;
+        }
+        .sidebar-content {
+            padding: 16px;
+        }
+        .sidebar-content h2 {
+            font-size: 24px;
+            color: #0099ff;
+            margin: 16px 0;
+            text-align: center;
+        }
+        .parameters {
+            margin-top: 20px;
+        }
+        .sidebar-content .parameter {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            color: white;
+        }
+        .sidebar-content .parameter a {
+            text-decoration: none; /* Remove underline */
+            color: inherit; /* Inherit text color */
+        }
+        .sidebar-content .parameter:hover,
+        .sidebar-content .parameter.active {
+            background-color: #1A2E46;
+            color: #0099ff;
+        }
+        .sidebar-content .parameter .icon {
+            margin-right: 16px;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+            background-color: #f8f8f8;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .form-container {
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow-y: auto;
+            flex: 1;
+        }
+        .form-container h2 {
+            margin-bottom: 10px;
+            font-size: 24px;
+            color: #011C3A;
+        }
+        .tab-container {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        .tab {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            background-color: #f1f1f1;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-right: 5px;
+            transition: background-color 0.3s;
+        }
+        .tab.active {
+            background-color: #ffffff;
+            border-bottom: none;
+            color: #011C3A;
+            font-weight: bold;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .form-group {
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .form-group input[type="file"] {
+            padding: 5px;
+        }
+        .form-group button {
+            background-color: #0099ff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .form-group button:hover {
+            background-color: #007acc;
+        }
+        .form-group input[type="file"] {
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="profile-section">
+            <div class="profile-pic"></div>
+            <div class="profile-name">Jesson George</div>
+            <div class="profile-email">jesson.george@example.com</div>
+        </div>
+        <div class="sidebar-content">
+            <h2>DASHBOARD</h2>
+            <div class="parameters">
+                <div class="parameter">
+                    <div class="icon">🔍</div>
+                    <div><a href="mainpage.ejs">Search defaulter</a></div>
+                </div>
+                <div class="parameter active">
+                    <div class="icon">📋</div>
+                    <div>Report a defaulter</div>
+                </div>
+                <div class="parameter">
+                    <div class="icon">📊</div>
+                    <div><a href="mylist.ejs">My monitoring list</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="form-container">
+            <h2>Report a Defaulter</h2>
+            <div class="tab-container">
+                <div class="tab active" data-tab="company">Report a company</div>
+                <div class="tab" data-tab="individual">Report an individual</div>
+            </div>
+            <div class="tab-content active" id="company">
+                <div class="form-group">
+                    <label for="incident-date-company">Date of the incident</label>
+                    <input type="date" id="incident-date-company" name="incident-date">
+                </div>
+                <div class="form-group">
+                    <label for="reported-date-company">Date of default reported</label>
+                    <input type="date" id="reported-date-company" name="reported-date">
+                </div>
+                <div class="form-group">
+                    <label for="entity-name-company">Entity Name</label>
+                    <input type="text" id="entity-name-company" name="entity-name" placeholder="Enter entity name">
+                </div>
+                <div class="form-group">
+                    <label for="registration-id-company">Registration ID/CIN</label>
+                    <input type="text" id="registration-id-company" name="registration-id" placeholder="Enter their registration ID/CIN">
+                </div>
+                <div class="form-group">
+                    <label for="legal-status-company">Legal Status</label>
+                    <input type="text" id="legal-status-company" name="legal-status" placeholder="Enter their legal status">
+                </div>
+                <div class="form-group">
+                    <label for="gst-number-company">GST Number</label>
+                    <input type="text" id="gst-number-company" name="gst-number" placeholder="Enter their GST number">
+                </div>
+                <div class="form-group">
+                    <label for="country-company">Country</label>
+                    <input type="text" id="country-company" name="country" placeholder="Enter your country">
+                </div>
+                <div class="form-group">
+                    <label for="kmp-name-company">KMP Name</label>
+                    <input type="text" id="kmp-name-company" name="kmp-name" placeholder="First name Last name">
+                </div>
+                <div class="form-group">
+                    <label for="category-company">Category</label>
+                    <select id="category-company" name="category">
+                        <option value="fraud">Fraud</option>
+                        <option value="default">Default
+                            <option value="other">Other</option>
+                        </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="comments-company">Comments</label>
+                            <textarea id="comments-company" name="comments" placeholder="Comment elaborating the default"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="csv-company">Upload CSV file or evidence</label>
+                            <input type="file" id="csv-company" name="csv">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit">Submit</button>
+                        </div>
+                        </div>
+                        <div class="tab-content" id="individual">
+                        <div class="form-group">
+                            <label for="incident-date-individual">Date of the incident</label>
+                            <input type="date" id="incident-date-individual" name="incident-date">
+                        </div>
+                        <div class="form-group">
+                            <label for="reported-date-individual">Date of default reported</label>
+                            <input type="date" id="reported-date-individual" name="reported-date">
+                        </div>
+                        <div class="form-group">
+                            <label for="entity-name-individual">Entity Name</label>
+                            <input type="text" id="entity-name-individual" name="entity-name" placeholder="Enter entity name">
+                        </div>
+                        <div class="form-group">
+                            <label for="id-individual">ID (Aadhar/PAN)</label>
+                            <input type="text" id="id-individual" name="id" placeholder="Enter their Aadhar/PAN">
+                        </div>
+                        <div class="form-group">
+                            <label for="legal-status-individual">Legal Status</label>
+                            <input type="text" id="legal-status-individual" name="legal-status" placeholder="Enter their legal status">
+                        </div>
+                        <div class="form-group">
+                            <label for="gst-number-individual">GST Number</label>
+                            <input type="text" id="gst-number-individual" name="gst-number" placeholder="Enter their GST number">
+                        </div>
+                        <div class="form-group">
+                            <label for="country-individual">Country</label>
+                            <input type="text" id="country-individual" name="country" placeholder="Enter your country">
+                        </div>
+                        <div class="form-group">
+                            <label for="category-individual">Category</label>
+                            <select id="category-individual" name="category">
+                                <option value="fraud">Fraud</option>
+                                <option value="default">Default</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="comments-individual">Comments</label>
+                            <textarea id="comments-individual" name="comments" placeholder="Comment elaborating the default"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="csv-individual">Upload CSV file or evidence</label>
+                            <input type="file" id="csv-individual" name="csv">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit">Submit</button>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const tabs = document.querySelectorAll('.tab');
+                            const tabContents = document.querySelectorAll('.tab-content');
+                        
+                            tabs.forEach(tab => {
+                                tab.addEventListener('click', function () {
+                                    tabs.forEach(t => t.classList.remove('active'));
+                                    tabContents.forEach(tc => tc.classList.remove('active'));
+                        
+                                    this.classList.add('active');
+                                    document.getElementById(this.dataset.tab).classList.add('active');
+                                });
+                            });
+                        });
+                        </script>
+                        </body>
+                        </html>

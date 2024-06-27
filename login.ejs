@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log-in</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: flex-end;
+            position: relative;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 100;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .background-rectangle {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 25%;
+            height: 100%;
+            background-color: #10172a;
+            z-index: -1;
+        }
+        .curved-rectangle {
+            position: absolute;
+            right: 15%;
+            top: 20%;
+            bottom: 30%;
+            width: 25%;
+            background-color: #D3D3D3;
+            border-radius: 15px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        #EnterpriseName {
+            text-align: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: #10172a;
+            margin-bottom: 20px;
+        }
+        .login-form {
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .form-field {
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        .form-field label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 16px;
+            font-weight: 400;
+            color: #10172a;
+        }
+        .form-field input {
+            width: calc(100% - 20px);
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+            background-color: #EDEDED;
+        }
+        .login-button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            background-color: #10172a;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .forgot-password, .Sign-Up {
+            font-size: 14px;
+            color: #10172a;
+            text-decoration: underline;
+            margin-top: 10px;
+            font-weight: 400;
+        }
+        img[src*='ye le 1.jpg'] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            width: 55%;
+            object-fit: cover;
+        }
+        .help-link {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-rectangle"></div>
+    <img src="/public/images/ye le 1.jpg" alt="company employees">
+    <a href="#" class="help-link">Need Help?</a>
+    <div class="curved-rectangle">
+        <div id="EnterpriseName">
+            Hello!
+        </div>
+        <form class="login-form" action="/login" method="post">
+            <div class="form-field">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your Registered Email" required autocomplete="off">
+            </div>
+            <div class="form-field">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button class="login-button" type="submit">Log In</button>
+            <a href="signup" class="Sign-Up">Don't have an account?</a>
+            <a href="forgotpassword" class="forgot-password">Forgot Password?</a>
+        </form>
+    </div>
+</body>
+</html>
